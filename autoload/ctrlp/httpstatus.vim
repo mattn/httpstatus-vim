@@ -23,8 +23,10 @@ function! ctrlp#httpstatus#init()
 endfunc
 
 function! ctrlp#httpstatus#accept(mode, str)
-  let @" = a:str
+  let e = split(a:str, '^\d\+\zs:\s*')
   call ctrlp#exit()
+  let url = get(g:, "ctrlp_httpstatus_url", "http://www.studyinghttp.net/status_code#Code%s")
+  call OpenBrowser(printf(url, e[0]))
 endfunction
 
 let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
